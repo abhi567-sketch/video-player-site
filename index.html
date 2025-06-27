@@ -1,0 +1,43 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cloud Video Player</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; text-align: center; background: #f0f0f0; }
+    input { width: 80%; padding: 10px; margin-bottom: 10px; font-size: 16px; }
+    button { padding: 10px 20px; font-size: 16px; cursor: pointer; }
+    iframe { width: 100%; height: 500px; border: none; margin-top: 20px; display: none; }
+  </style>
+</head>
+<body>
+  <h1>Paste Your Video Link Below</h1>
+  <input type="text" id="videoLink" placeholder="Paste Terabox, MDisk, Streamtape link here" />
+  <br/>
+  <button onclick="playVideo()">Play Video</button>
+  <iframe id="videoFrame" allowfullscreen></iframe>
+
+  <script>
+    function playVideo() {
+      var link = document.getElementById('videoLink').value.trim();
+      var frame = document.getElementById('videoFrame');
+
+      if (link.includes("terabox.com") || link.includes("terafileshare.com")) {
+        frame.src = link.replace("/s/", "/share/");
+        frame.style.display = "block";
+      } else if (link.includes("streamtape.com")) {
+        frame.src = link.replace("/v/", "/e/");
+        frame.style.display = "block";
+      } else if (link.includes("mdisk.me")) {
+        frame.src = "https://mdiskplay.com/e/" + link.split("/").pop();
+        frame.style.display = "block";
+      } else {
+        alert("Unsupported link format");
+        frame.style.display = "none";
+      }
+    }
+  </script>
+</body>
+</html>
